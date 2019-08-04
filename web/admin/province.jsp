@@ -115,7 +115,7 @@
 <!--End of Modal Edit-->
 <%@include file="../layout/footer.jsp" %>
 <%
-    session.removeAttribute("llistProvince"); 
+    session.removeAttribute("listProvince"); 
     session.removeAttribute("province");
 %>
 </html>

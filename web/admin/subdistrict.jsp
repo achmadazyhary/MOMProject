@@ -87,13 +87,13 @@
                     <div>
                         <select class="form-control" id="district" name="district">
                             <option value="">None</option>
-                            <%
-//                                if (session.getAttribute("listSubdistrict") != null) {
-//                                    for (District d : listDistrict) {%>
-                                    <option value="<%//=d.getId()%>"<%//=(subdistrict!=null)?(Integer.parseInt(d.getId().toString())
-                                            //==Integer.parseInt(subdistrict.getDistrict().getId().toString()))?"selected":"":""%>><%//=d.getName()%></option>
-                                    <%//}
-                                //}
+                            <%if (session.getAttribute("listSubdistrict") != null) {
+                                    for (District d : listDistrict) {%>
+                                    <option value="<%=d.getId()%>"<%= (subdistrict != null) ? (Integer.parseInt(d.getId().toString()) 
+                                            == Integer.parseInt(subdistrict.getDistrict().getId().toString())) ? 
+                                            "selected" : "" : "" %>><%=d.getName()%></option>
+                                        <%}
+                                }%>
                             %>
                         </select>
                     </div>
@@ -107,33 +107,34 @@
 <!--End of Modal Insert-->
 
 <!-- Modal Edit-->
-<%//if (session.getAttribute("listDistrict") != null) {
-    //for (District d : listDistrict) {%>
-<div class="modal fade" id="modalEdit<%//= d.getId()%>" role="dialog">
+<%if (session.getAttribute("listSubdistrict") != null) {
+    for (Subdistrict s : listSubdistrict) {%>
+<div class="modal fade" id="modalEdit<%= s.getId()%>" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form action="../DistrictServlet" method="POST">
+                <form action="../SubdistrictServlet" method="POST">
                     <label><b>ID</b></label>
-                    <input class="form-control" type="text" name="id" value="<%//=d.getId()%>" readonly/>
+                    <input class="form-control" type="text" name="id" value="<%=s.getId()%>" readonly/>
                     <br>
                     <label><b>Sub-District</b></label>
-                    <input class="form-control" type="text" name="name" value="<%//=d.getName()%>" />
+                    <input class="form-control" type="text" name="name" value="<%=s.getName()%>" />
                     <br>
                     <label><b>District</b></label>
                     <div>
-                        <select class="form-control" id="province" name="province">
+                        <select class="form-control" id="district" name="district">
                             <option value="">None</option>
-                            <%//if(session.getAttribute("listDistrict") != null){
-                                //for (Province p : listProvince) {%>
-                                <option value="<%//=p.getId()%>"<%//=(d!=null)?(Integer.parseInt(p.getId().toString())
-                                        //==Integer.parseInt(d.getProvince().getId().toString()))?"selected":"":""%>><%//=p.getName()%>
-                                </option>                
-                                <%//}
-                            //}%>
+                            <%if (session.getAttribute("listSubdistrict") != null) {
+                                    for (District d : listDistrict) {%>
+                                    <option value="<%=d.getId()%>"<%= (s != null) ? (Integer.parseInt(d.getId().toString()) 
+                                            == Integer.parseInt(s.getDistrict().getId().toString())) ? 
+                                            "selected" : "" : "" %>><%=d.getName()%></option>
+                                        <%}
+                                }%>
+                            %>
                         </select>
                     </div>
                     <br>
@@ -143,8 +144,8 @@
         </div>
     </div>
 </div>
-<%//}
-    //}
+<%}
+    }
 %>
 <!--End of Modal Edit-->
 <%@include file="../layout/footer.jsp"%>

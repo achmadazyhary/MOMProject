@@ -4,6 +4,9 @@
     Author     : HARRY-PC
 --%>
 
+<%@page import="models.Subdistrict"%>
+<%@page import="models.Urbanvillage"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp"%>
 <div class="container-fluid">
@@ -20,12 +23,12 @@
             <h6 class="m-0 font-weight-bold text-primary">Urban-Village Data</h6>
         </div>
         <%
-//            List<District> listDistrict = (List<District>) session.getAttribute("listDistrict");
-//            List<Province> listProvince = (List<Province>) session.getAttribute("listProvince");
-//            District district = (District) session.getAttribute("district");
-//            if (session.getAttribute("listDistrict") == null) {
-//                response.sendRedirect("../DistrictServlet");
-//            }
+            List<Urbanvillage> listUrbanvillage = (List<Urbanvillage>) session.getAttribute("listUrbanvillage");
+            List<Subdistrict> listSubdistrict = (List<Subdistrict>) session.getAttribute("listSubdistrict");
+            Urbanvillage urbanvillage = (Urbanvillage) session.getAttribute("urbanvillage");
+            if (session.getAttribute("listUrbanvillage") == null) {
+                response.sendRedirect("../UrbanvillageServlet");
+            }
         %>
         <div class="card-body">
             <div class="table-responsive">
@@ -48,19 +51,19 @@
                     </tfoot>
                     <tbody>
                         <%
-//                            if (session.getAttribute("listDistrict") != null) {
-//                                for (District dist : listDistrict) {
+                            if (session.getAttribute("listUrbanvillage") != null) {
+                                for (Urbanvillage urban : listUrbanvillage) {
                         %>
                         <tr>
                             <td></td>
-                            <td><%//=dist.getName()%></td>
-                            <td><%//=dist.getProvince().getName()%></td>
-                            <td><a class="btn btn-danger"  href="../DistrictServlet?action=delete&id=<%//=dist.getId()%>">Delete</a>
-                                <a class="btn btn-primary" data-toggle="modal" data-target="#modalEdit<%//=dist.getId()%>" >Update</a>
+                            <td><%=urban.getName()%></td>
+                            <td><%=urban.getSubdistrict().getName()%></td>
+                            <td><a class="btn btn-danger"  href="../UrbanvillageServlet?action=delete&id=<%=urban.getId()%>">Delete</a>
+                                <a class="btn btn-primary" data-toggle="modal" data-target="#modalEdit<%=urban.getId()%>" >Update</a>
                             </td>
                         </tr>
-                        <%//}
-                            //}%>
+                        <%}
+                            }%>
                     </tbody>
                 </table>
             </div>
@@ -76,20 +79,19 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form action="../DistrictServlet" method="POST">
+                <form action="../UrbanvillageServlet" method="POST">
                     <label><b>Urban-Village</b></label>
-                    <input class="form-control" type="text" name="name" value="<%%>" />
+                    <input class="form-control" type="text" name="name" value="<%= (urbanvillage != null) ? urbanvillage.getName() : ""%>" />
                     <br>
                     <label><b>Sub-District</b></label>
                     <div>
-                        <select class="form-control" id="province" name="province">
+                        <select class="form-control" id="subdistrict" name="subdistrict">
                             <option value="">None</option>
-                            <%//if(session.getAttribute("listDistrict") != null){
-                                //for (Province p : listProvince) {%>
-                                <option value="<%//=p.getId()%>"<%//= (district != null)?(Integer.parseInt(p.getId().toString())
-                                        //==Integer.parseInt(district.getProvince().getId().toString()))?"selected":"":""%>><%//=p.getName()%></option>                
-                                <%//}
-                            //}%>
+                            <%if (session.getAttribute("listUrbanvillage") != null) {
+                                for (Subdistrict s : listSubdistrict) {%>
+                                <option value="<%=s.getId()%>"<%= (urbanvillage != null) ? (Integer.parseInt(s.getId().toString()) == Integer.parseInt(urbanvillage.getSubdistrict().getId().toString())) ? "selected" : "" : "" %>><%=s.getName()%></option>
+                                <%}
+                            }%>
                         </select>
                     </div>
                     <br>
@@ -102,33 +104,31 @@
 <!--End of Modal Insert-->
 
 <!-- Modal Edit-->
-<%//if (session.getAttribute("listDistrict") != null) {
-    //for (District d : listDistrict) {%>
-<div class="modal fade" id="modalEdit<%//= d.getId()%>" role="dialog">
+<%if (session.getAttribute("listUrbanvillage") != null) {
+   for (Urbanvillage u : listUrbanvillage) {%>
+<div class="modal fade" id="modalEdit<%= u.getId()%>" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form action="../DistrictServlet" method="POST">
+                <form action="../UrbanvillageServlet" method="POST">
                     <label><b>ID</b></label>
-                    <input class="form-control" type="text" name="id" value="<%//=d.getId()%>" readonly/>
+                    <input class="form-control" type="text" name="id" value="<%=u.getId()%>" readonly/>
                     <br>
                     <label><b>Urban-Village</b></label>
-                    <input class="form-control" type="text" name="name" value="<%//=d.getName()%>" />
+                    <input class="form-control" type="text" name="name" value="<%=u.getName()%>" />
                     <br>
                     <label><b>Sub-District</b></label>
                     <div>
-                        <select class="form-control" id="province" name="province">
+                        <select class="form-control" id="subdistrict" name="subdistrict">
                             <option value="">None</option>
-                            <%//if(session.getAttribute("listDistrict") != null){
-                                //for (Province p : listProvince) {%>
-                                <option value="<%//=p.getId()%>"<%//=(d!=null)?(Integer.parseInt(p.getId().toString())
-                                        //==Integer.parseInt(d.getProvince().getId().toString()))?"selected":"":""%>><%//=p.getName()%>
-                                </option>                
-                                <%//}
-                            //}%>
+                           <%if (session.getAttribute("listUrbanvillage") != null) {
+                                for (Subdistrict s : listSubdistrict) {%>
+                                <option value="<%=s.getId()%>"<%= (u != null) ? (Integer.parseInt(s.getId().toString()) == Integer.parseInt(u.getSubdistrict().getId().toString())) ? "selected" : "" : "" %>><%=s.getName()%></option>
+                                <%}
+                            }%>
                         </select>
                     </div>
                     <br>
@@ -138,13 +138,13 @@
         </div>
     </div>
 </div>
-<%//}
-    //}
+<%}
+    }
 %>
 <!--End of Modal Edit-->
 <%@include file="../layout/footer.jsp"%>
 <%
-//    session.removeAttribute("listDistrict"); 
-//    session.removeAttribute("district");
+    session.removeAttribute("listUrbanvillage"); 
+    session.removeAttribute("urbanvillage");
 %>
 </html>

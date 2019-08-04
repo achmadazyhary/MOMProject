@@ -50,7 +50,7 @@ public class Employee implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private BigDecimal id;
-    @Basic(optional = false)
+//    @Basic(optional = false)
     @Column(name = "NAME")
     private String name;
     @Column(name = "LASTNAME")

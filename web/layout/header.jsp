@@ -68,8 +68,8 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Custom Master Data:</h6>
-                            <a class="collapse-item" href="admin_customer.jsp">Customer</a>
-                            <a class="collapse-item" href="admin_employee.jsp">Employee</a>
+                            <a class="collapse-item" href="customer.jsp">Customer</a>
+                            <a class="collapse-item" href="employee.jsp">Employee</a>
                             <a class="collapse-item" href="province.jsp">Province</a>
                             <a class="collapse-item" href="district.jsp">District</a>
                             <a class="collapse-item" href="subdistrict.jsp">Sub-District</a>

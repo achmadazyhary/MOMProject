@@ -8,11 +8,13 @@ import controllers.DistrictController;
 import controllers.ProvinceController;
 import controllers.RoleController;
 import controllers.SubdistrictController;
+import controllers.UrbanvillageController;
 import daos.GenericDAO;
 import icontrollers.IDistrictController;
 import icontrollers.IProvinceController;
 import icontrollers.IRoleController;
 import icontrollers.ISubdistrictController;
+import icontrollers.IUrbanvillageController;
 import idaos.IGenericDAO;
 import java.sql.SQLException;
 import models.District;
@@ -20,6 +22,7 @@ import models.Province;
 import models.Role;
 import models.Status;
 import models.Subdistrict;
+import models.Urbanvillage;
 import org.hibernate.SessionFactory;
 
 /**
@@ -52,12 +55,14 @@ public class ManualTest {
         IProvinceController ipc = new ProvinceController();
         IDistrictController idc =  new DistrictController();
         ISubdistrictController isc = new SubdistrictController();
+        IUrbanvillageController iuc = new UrbanvillageController();
 //        System.out.println(isc.insert("Grogol", "1"));
 //        System.out.println(idc.update("1", "Jakarta Barat", "141"));
-        for (Subdistrict s : isc.getAll()) {
-            System.out.println(s.getId());
-            System.out.println(s.getName());
-            System.out.println(s.getDistrict().getName());
+        System.out.println(iuc.insert("Tomang", "1"));
+        for (Urbanvillage u : iuc.getAll()) {
+            System.out.println(u.getId());
+            System.out.println(u.getName());
+            System.out.println(u.getSubdistrict().getName());
         }
     }
 } 

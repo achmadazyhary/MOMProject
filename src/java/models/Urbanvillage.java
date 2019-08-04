@@ -12,12 +12,15 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -38,6 +41,8 @@ public class Urbanvillage implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BI_URBANVILLAGE")
+    @SequenceGenerator(name = "BI_URBANVILLAGE", sequenceName = "URBANVILLAGE_SEQUENCE", allocationSize = 1)
     @Basic(optional = false)
     @Column(name = "ID")
     private BigDecimal id;
@@ -54,6 +59,17 @@ public class Urbanvillage implements Serializable {
 
     public Urbanvillage(BigDecimal id) {
         this.id = id;
+    }
+
+    public Urbanvillage(BigDecimal id, String name, Subdistrict subdistrict) {
+        this.id = id;
+        this.name = name;
+        this.subdistrict = subdistrict;
+    }
+
+    public Urbanvillage(String name, Subdistrict subdistrict) {
+        this.name = name;
+        this.subdistrict = subdistrict;
     }
 
     public BigDecimal getId() {
